@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Präpositionen mit Dativ - Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin: 20px 0;
+    }
+    .answer {
+      display: block;
+      margin: 10px 0;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Präpositionen mit Dativ - Quiz</h1>
+  <div id="quiz"></div>
+  <button id="submit">Antwort überprüfen</button>
+  <p id="result"></p>
+
+  <script>
+    // Fragen und Antworten
+    const questions = [
+      {
+        question: "Peter kommt ___ der Arbeit.",
+        options: ["mit", "von", "bei", "zu", "seit"],
+        correct: "von"
+      },
+      {
+        question: "Ich fahre morgen ___ Berlin.",
+        options: ["nach", "bei", "mit", "seit", "von"],
+        correct: "nach"
+      },
+      {
+        question: "Wir sprechen ___ dem Lehrer.",
+        options: ["zu", "mit", "bei", "nach", "seit"],
+        correct: "mit"
+      },
+      {
+        question: "Er ist schon lange ___ seiner Freundin.",
+        options: ["bei", "seit", "mit", "zu", "von"],
+        correct: "seit"
+      },
+      {
+        question: "Ich gehe ___ meiner Mutter ins Kino.",
+        options: ["mit", "bei", "nach", "zu", "seit"],
+        correct: "mit"
+      }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+    const resultContainer = document.getElementById("result");
+    const submitButton = document.getElementById("submit");
+
+    function loadQuiz() {
+      questions.forEach((q, index) => {
+        const questionElement = document.createElement("div");
+        questionElement.classList.add("question");
+        questionElement.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+
+        q.options.forEach(option => {
+          const label = document.createElement("label");
+          label.innerHTML = `
+            <input type="radio" name="question${index}" value="${option}" /> ${option}
+          `;
+          label.classList.add("answer");
+          questionElement.appendChild(label);
+        });
+
+        quizContainer.appendChild(questionElement);
+      });
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      questions.forEach((q, index) => {
+        const selectedAnswer = document.querySelector(
+          `input[name="question${index}"]:checked`
+        );
+        if (selectedAnswer && selectedAnswer.value === q.correct) {
+          score++;
+        }
+      });
+
+      resultContainer.textContent = `Du hast ${score} von ${questions.length} Fragen richtig beantwortet!`;
+    }
+
+    submitButton.addEventListener("click", checkAnswers);
+    loadQuiz();
+  </script>
+</body>
+</html>
